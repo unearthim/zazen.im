@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- === 1. Primary Meta Tags === -->
+    <title>Zazen | zazen.im</title>
+    <meta name="title" content="Zazen | zazen.im">
+    <meta name="description" content="An interactive digital art piece simulating a procedural bonsai tree through real-time seasons and celestial cycles. A living monument by Jojo.">
+    <meta name="keywords" content="digital art, procedural generation, generative art, bonsai, zen garden, simulation, real-time, interactive art, Jojo, unearth.im">
+    <meta name="author" content="zazen.im (An unearth.im Project)">
+    <meta name="robots" content="index, follow">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="language" content="English">
+    
+    <!--- NON-NEGOTIABLE AND IMPORTANT:CANONICAL LINKS: if page-url.html is index.html, no need to attach it at the end of link--->
+    
+  <link rel="canonical" href="https://zazen.im/" />
+  
+    <!-- === 2. Webmention Endpoint === -->
+    <link rel="webmention" href="https://webmention.io/unearth.im/webmention" />
+
+    <!-- === 3. Open Graph / Facebook === -->
+    <meta property="og:type" content="website"> 
+    <meta property="og:url" content="https://zazen.im/">
+    <meta property="og:title" content="Zazen | zazen.im">
+    <meta property="og:description" content="An interactive digital art piece simulating a procedural bonsai tree through real-time seasons and celestial cycles. A living monument by unearth.im">
+    <meta property="og:image" content="https://zazen.im/og-image.png">
+    <meta property="og:site_name" content="zazen.im">
+
+    <!-- === 4. Twitter Card === -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://zazen.im/">
+    <meta property="twitter:title" content="Zazen | zazen.im">
+    <meta property="twitter:description" content="An interactive digital art piece simulating a procedural bonsai tree through real-time seasons and celestial cycles. A living monument by unearth.im.">
+    <meta property="twitter:image" content="https://zazen.im/og-image.png">
+
+    <!-- === 5. Favicons === -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+    <!-- Brand Color Meta Tags -->
+    <meta name="theme-color" content="#1a1a1a">
+    <meta name="msapplication-TileColor" content="#3e2723">
+
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #1a1a1a;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        #canvas-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+
+        /* UI Overlay - Designed to be unobtrusive for exhibits */
+        #ui-top-right {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        #controls {
+            background: rgba(0, 0, 0, 0.6);
+            color: #ececec;
+            padding: 20px;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 280px;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            transform-origin: top right;
+        }
+
+        #controls.collapsed {
+            opacity: 0;
+            transform: scale(0.95);
+            pointer-events: none;
+        }
+
+        #toggleControls {
+            width: 32px;
+            height: 32px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            line-height: 30px;
+            text-align: center;
+            padding: 0;
+            z-index: 11;
+            margin-bottom: 8px;
+            backdrop-filter: blur(5px);
+        }
+
+        #toggleControls:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        #controls:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        h1 {
+            font-size: 1.1rem;
+            margin: 0 0 5px 0;
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #fff;
+        }
+
+        .metadata {
+            font-size: 0.75rem;
+            color: #aaa;
+            margin-bottom: 15px;
+            font-family: monospace;
+            line-height: 1.4;
+        }
+
+        .control-group {
+            margin-bottom: 12px;
+        }
+
+        label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: #ccc;
+            margin-bottom: 4px;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            cursor: pointer;
+            accent-color: #a8c0ce;
+        }
+
+        button {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #ddd;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            width: 100%;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        button:hover {
+            background: rgba(255,255,255,0.2);
+            border-color: rgba(255,255,255,0.4);
+            color: #fff;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.1);
+            font-size: 0.7rem;
+            margin-right: 5px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="ui-top-right">
+        <button id="toggleControls">-</button>
+        <div id="controls">
+            <h1>Botanical Chronometer</h1>
+            <div class="metadata">
+                <div id="dateDisplay">YYYY-MM-DD HH:MM</div>
+                <div><span id="seasonDisplay" class="status-badge">Loading...</span> <span id="timeDisplay" class="status-badge">--</span></div>
+            </div>
+            
+            <div class="control-group">
+                <label>Time Flow <span id="speedVal">Real-time</span></label>
+                <input type="range" id="speedSlider" min="0" max="5" step="1" value="0">
+            </div>
+
+            <div class="control-group">
+                <label>Tree Posture (Lean)</label>
+                <input type="range" id="leanSlider" min="-0.4" max="0.4" step="0.01" value="0">
+            </div>
+
+            <button onclick="resetSimulation()">Reset to Now</button>
+        </div>
+    </div>
+
+    <div id="canvas-container">
+        <canvas id="worldCanvas"></canvas>
+    </div>
+
+    <script>
+        /**
+         * Digital Monument: Living Bonsai
+         * Curator: Jojo
+         * Logic: Procedural Growth + Real-time Temporal Simulation
+         */
+
+        const canvas = document.getElementById('worldCanvas');
+        const ctx = canvas.getContext('2d');
+        const dateDisplay = document.getElementById('dateDisplay');
+        const seasonDisplay = document.getElementById('seasonDisplay');
+        const timeDisplay = document.getElementById('timeDisplay');
+        const speedLabel = document.getElementById('speedVal');
+
+        let width, height;
+        let treeData = []; 
+        let mountainData = [];
+        let particles = [];
+        let starData = [];
+        let critters = [];
+        let lastCritterTime = 0;
+        
+        // Time System
+        let simulationTime = Date.now();
+        let timeSpeed = 1;
+        let lastFrameTime = performance.now();
+        
+        // Environmental State
+        let currentSeason = 'spring';
+        let dayProgress = 0.5; // 0 to 1 (0=midnight, 0.5=noon)
+        let baseLean = 0;
+
+        // Configuration
+        const config = {
+            maxDepth: 10,
+            windSpeed: 0.0005,
+            // Palette
+            colors: {
+                branch: '#3e2723', // Dark wood
+                leaves: {
+                    spring: { main: 'rgba(255, 183, 178, 0.9)', shadow: 'rgba(255, 105, 180, 0.8)' },
+                    summer: { main: 'rgba(76, 175, 80, 0.85)', shadow: 'rgba(56, 142, 60, 0.85)' },
+                    autumn: { main: 'rgba(216, 67, 21, 0.9)', shadow: 'rgba(191, 54, 12, 0.9)' },
+                    winter: { main: 'rgba(255, 255, 255, 0.0)', shadow: 'rgba(255, 255, 255, 0.0)' } // Invisible leaves
+                },
+                sky: {
+                    dawn: ['#2c3e50', '#e67e22'], // Dark blue to orange
+                    day: ['#4fc3f7', '#ffffff'],   // Bright blue to white
+                    dusk: ['#1a237e', '#f44336'],  // Deep blue to red
+                    night: ['#000000', '#1a237e']  // Black to deep blue
+                }
+            }
+        };
+
+        // --- INITIALIZATION ---
+
+        function init() {
+            resize();
+            generateWorld();
+            createParticles();
+            animate();
+        }
+
+        function resize() {
+            const resolutionScale = 0.75;
+            width = window.innerWidth * resolutionScale;
+            height = window.innerHeight * resolutionScale;
+            canvas.width = width;
+            canvas.height = height;
+            generateMountains();
+            generateStars(); // Regenerate stars for new size
+        }
+
+        window.addEventListener('resize', resize);
+
+        // --- CONTROLS ---
+
+        const controlsPanel = document.getElementById('controls');
+        const toggleBtn = document.getElementById('toggleControls');
+
+        toggleBtn.addEventListener('click', () => {
+            controlsPanel.classList.toggle('collapsed');
+            const isCollapsed = controlsPanel.classList.contains('collapsed');
+            toggleBtn.innerText = isCollapsed ? '+' : '-';
+        });
+
+        document.getElementById('leanSlider').addEventListener('input', (e) => {
+            baseLean = parseFloat(e.target.value);
+        });
+
+        document.getElementById('speedSlider').addEventListener('input', (e) => {
+            const val = parseInt(e.target.value);
+            const speeds = [1, 60, 3600, 86400, 604800, 2592000]; // Real-time, Min/sec, Hour/sec, Day/sec, Week/sec, Month/sec
+            const labels = ["Real-time", "1m/s", "1h/s", "1d/s", "1w/s", "1mo/s"];
+            timeSpeed = speeds[val];
+            speedLabel.innerText = labels[val];
+        });
+
+        function resetSimulation() {
+            simulationTime = Date.now();
+            timeSpeed = 1;
+            document.getElementById('speedSlider').value = 0;
+            speedLabel.innerText = "Real-time";
+            generateTreeSkeleton(); // Regrow for fun
+        }
+
+        // --- LOGIC: TIME & SEASONS ---
+
+        function updateTime(dt) {
+            // Increment simulation time
+            simulationTime += dt * timeSpeed;
+            
+            const date = new Date(simulationTime);
+            
+            // Update UI
+            dateDisplay.innerText = date.toLocaleString('en-US', { 
+                year: 'numeric', month: 'short', day: '2-digit', 
+                hour: '2-digit', minute: '2-digit' 
+            });
+
+            // Calculate Day Progress (0.0 - 1.0)
+            const msInDay = 24 * 60 * 60 * 1000;
+            const msSinceMidnight = (date.getHours() * 3600000) + (date.getMinutes() * 60000) + (date.getSeconds() * 1000) + date.getMilliseconds();
+            dayProgress = msSinceMidnight / msInDay;
+
+            // Calculate Season (Northern Hemisphere approx)
+            const month = date.getMonth(); // 0-11
+            
+            let newSeason;
+            if (month >= 2 && month <= 4) newSeason = 'spring';       // Mar, Apr, May
+            else if (month >= 5 && month <= 7) newSeason = 'summer';  // Jun, Jul, Aug
+            else if (month >= 8 && month <= 10) newSeason = 'autumn'; // Sep, Oct, Nov
+            else newSeason = 'winter';                                // Dec, Jan, Feb
+
+            if (newSeason !== currentSeason) {
+                currentSeason = newSeason;
+                // Trigger effect on change?
+            }
+
+            seasonDisplay.innerText = currentSeason.toUpperCase();
+            
+            // Day State Label
+            let timeLabel = "NIGHT";
+            if (dayProgress > 0.25 && dayProgress < 0.75) timeLabel = "DAY";
+            else if (dayProgress >= 0.2 && dayProgress <= 0.25) timeLabel = "DAWN";
+            else if (dayProgress >= 0.75 && dayProgress <= 0.8) timeLabel = "DUSK";
+            timeDisplay.innerText = timeLabel;
+        }
+
+        // --- GENERATION ---
+
+        function generateWorld() {
+            generateTreeSkeleton();
+            generateMountains();
+            generateStars();
+        }
+
+        function generateStars() {
+            starData = [];
+            const starCount = 200;
+            for(let i=0; i<starCount; i++) {
+                starData.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height * 0.8, // Only in the upper 80% of the sky
+                    size: Math.random() * 2 + 0.5,
+                    alpha: Math.random() * 0.8 + 0.2
+                });
+            }
+        }
+
+        function generateTreeSkeleton() {
+            const startLength = Math.min(height, width) * 0.16;
+            treeData = {
+                relativeAngle: 0, 
+                length: startLength,
+                width: startLength * 0.12,
+                depth: 0,
+                noiseOffset: Math.random() * 100,
+                branches: []
+            };
+            growBranch(treeData);
+        }
+
+        function growBranch(branch) {
+            if (branch.depth >= config.maxDepth) return;
+            
+            const numBranches = Math.random() > 0.75 ? 3 : 2;
+
+            for (let i = 0; i < numBranches; i++) {
+                const spread = (Math.random() * 0.6 + 0.3); 
+                const dir = (i / (numBranches - 1) - 0.5) * spread; 
+                const noise = (Math.random() - 0.5) * 0.3; 
+                
+                const relativeAngle = dir + noise;
+                const lenMult = 0.75 + (Math.random() * 0.15 - 0.05);
+                
+                const newBranch = {
+                    relativeAngle: relativeAngle,
+                    length: branch.length * lenMult,
+                    width: branch.width * 0.7,
+                    depth: branch.depth + 1,
+                    noiseOffset: Math.random() * 100,
+                    branches: []
+                };
+                
+                if (newBranch.length < 5) continue;
+                branch.branches.push(newBranch);
+                growBranch(newBranch);
+            }
+        }
+
+        function generateMountains() {
+            mountainData = [];
+            const layers = 3;
+            for(let l=0; l<layers; l++) {
+                let points = [];
+                let yBase = height - (l * 80) - 50;
+                let x = 0;
+                points.push({x: 0, y: height});
+                points.push({x: 0, y: yBase});
+                
+                while(x < width) {
+                    x += 20 + Math.random() * 80;
+                    let yNoise = (Math.random() - 0.5) * 80;
+                    points.push({x: x, y: yBase + yNoise});
+                }
+                
+                points.push({x: width, y: height});
+                
+                mountainData.push({
+                    points: points,
+                    // Store base alpha, will adjust brightness in draw loop
+                    alpha: 0.3 + (l * 0.2) 
+                });
+            }
+        }
+
+        function createParticles() {
+            particles = [];
+            for(let i=0; i<80; i++) {
+                resetParticle({});
+            }
+        }
+        
+        function resetParticle(p) {
+            p.x = Math.random() * width;
+            p.y = Math.random() * height;
+            p.size = Math.random() * 3 + 1;
+            p.speedY = Math.random() * 0.5 + 0.2;
+            p.speedX = (Math.random() - 0.5) * 0.5;
+            p.opacity = Math.random();
+            p.wobble = Math.random() * Math.PI * 2;
+            return p;
+        }
+
+        // --- DRAWING ---
+
+        function getSkyColor() {
+            // Interpolate between 4 states based on dayProgress
+            // Dawn: 0.25, Day: 0.5, Dusk: 0.75, Night: 0.0/1.0
+            
+            let c1, c2, t;
+            const colors = config.colors.sky;
+
+            // Helper to interpolate hex colors would be complex, 
+            // simplified approach: just switch logic or simple lerp if converted to RGB.
+            // For robustness, let's use canvas gradients and just overlay them with alpha.
+            
+            // But for cleaner code, let's just return the active palette and use alpha blending for transitions.
+            if (dayProgress < 0.2) return { top: colors.night[0], bot: colors.night[1], alpha: 1 }; // Night
+            if (dayProgress < 0.3) return { top: colors.dawn[0], bot: colors.dawn[1], alpha: 1 };   // Dawn transition
+            if (dayProgress < 0.7) return { top: colors.day[0], bot: colors.day[1], alpha: 1 };     // Day
+            if (dayProgress < 0.8) return { top: colors.dusk[0], bot: colors.dusk[1], alpha: 1 };   // Dusk
+            return { top: colors.night[0], bot: colors.night[1], alpha: 1 };                        // Night
+        }
+
+        function drawSky() {
+            // 1. Base Background (Black)
+            ctx.fillStyle = '#000';
+            ctx.fillRect(0,0,width,height);
+
+            // 2. Determine Sky Gradient
+            const sky = getSkyColor();
+            let grad = ctx.createLinearGradient(0, 0, 0, height);
+            grad.addColorStop(0, sky.top);
+            grad.addColorStop(1, sky.bot);
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, 0, width, height);
+
+            // 3. Sun / Moon
+            drawCelestialBodies();
+        }
+
+        function drawStars() {
+            // Only draw stars at night
+            if (dayProgress > 0.25 && dayProgress < 0.75) return;
+
+            // Fade stars in/out during dawn/dusk
+            let globalAlpha = 1;
+            if (dayProgress >= 0.2 && dayProgress < 0.25) { // Fading in at dawn
+                globalAlpha = 1 - (dayProgress - 0.2) * 4;
+            } else if (dayProgress >= 0.75 && dayProgress < 0.8) { // Fading out at dusk
+                globalAlpha = (dayProgress - 0.75) * 4;
+            }
+             
+            ctx.fillStyle = '#fff';
+            starData.forEach(star => {
+                ctx.globalAlpha = globalAlpha * star.alpha * (0.5 + Math.abs(Math.sin(simulationTime * 0.0001 * star.size)));
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            ctx.globalAlpha = 1;
+        }
+
+        function drawCelestialBodies() {
+            // This logic is adapted from the cherry blossom file provided by the user.
+            const isDay = dayProgress > 0.25 && dayProgress < 0.75;
+
+            // 1. Calculate horizontal position (left to right)
+            const celestialX = (dayProgress * (width + 200)) - 100;
+
+            // 2. Calculate vertical position (arc)
+            const horizonY = height * 0.65; // Set horizon slightly above the mountains
+            const arcHeight = height * 0.5;
+            const celestialY = horizonY - (Math.sin(dayProgress * Math.PI) * arcHeight);
+
+            // Do not draw if the object is below the horizon line.
+            if (celestialY > horizonY + 20) return;
+
+            if (isDay) {
+                // Draw Sun
+                ctx.fillStyle = '#FCD34D';
+                ctx.shadowBlur = 30;
+                ctx.shadowColor = '#FCD34D';
+                ctx.beginPath();
+                ctx.arc(celestialX, celestialY, 30, 0, Math.PI * 2);
+                ctx.fill();
+            } else {
+                // Draw Moon
+                ctx.fillStyle = '#E2E8F0';
+                ctx.shadowBlur = 20;
+                ctx.shadowColor = '#E2E8F0';
+                ctx.beginPath();
+                ctx.arc(celestialX, celestialY, 25, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            ctx.shadowBlur = 0; // Reset shadow
+        }
+
+        function draw() {
+            // Clear
+            ctx.clearRect(0,0,width,height);
+
+            drawSky();
+            drawStars();
+            drawMountains();
+            
+            // Ground
+            let groundColor;
+            switch(currentSeason) {
+                case 'winter': groundColor = '#eceff1'; break; // Snow
+                case 'autumn': groundColor = '#5d4037'; break; // Brown earth
+                default: groundColor = '#2e7d32'; break; // Green grass
+            }
+            
+            // Dim ground at night
+            if (dayProgress < 0.25 || dayProgress > 0.75) {
+                // Simple brightness hack
+                 // Actually, stick to one color for simplicity, rely on global lighting overlay? 
+                 // Let's just manually pick dark variants
+                 if (currentSeason === 'winter') groundColor = '#37474f';
+                 else if (currentSeason === 'autumn') groundColor = '#3e2723';
+                 else groundColor = '#1b5e20';
+            }
+
+            ctx.beginPath();
+            ctx.moveTo(0, height);
+            ctx.quadraticCurveTo(width/2, height - 60, width, height);
+            ctx.fillStyle = groundColor;
+            ctx.fill();
+
+            drawDecorations();
+
+            // Tree
+            ctx.save();
+            ctx.translate(width / 2, height - 30);
+            ctx.rotate(baseLean); 
+            
+            // Tree Sway
+            const windFactor = Math.sin(simulationTime * config.windSpeed);
+            drawBranchRecursively(treeData, windFactor);
+            ctx.restore();
+
+            drawParticles();
+            updateCritters();
+
+            // Darkness Overlay (Simulate night cycle intensity)
+            // 0.5 is noon (opacity 0). 0 or 1 is midnight (opacity 0.6)
+            let darkness = 0;
+            const distFromNoon = Math.abs(dayProgress - 0.5); // 0 to 0.5
+            if (distFromNoon > 0.25) { // Start darkening
+                darkness = (distFromNoon - 0.25) * 2.5; // Map 0.25->0.5 to 0->0.6
+            }
+            if (darkness > 0) {
+                ctx.fillStyle = `rgba(0, 0, 10, ${Math.min(darkness, 0.7)})`;
+                ctx.fillRect(0,0,width,height);
+            }
+        }
+
+        function drawMountains() {
+            mountainData.forEach(layer => {
+                ctx.beginPath();
+                ctx.moveTo(layer.points[0].x, layer.points[0].y);
+                for(let i=1; i<layer.points.length; i++) {
+                    let p = layer.points[i];
+                    if (i < layer.points.length - 1) {
+                         let xc = (layer.points[i].x + layer.points[i+1].x) / 2;
+                         let yc = (layer.points[i].y + layer.points[i+1].y) / 2;
+                         ctx.quadraticCurveTo(layer.points[i].x, layer.points[i].y, xc, yc);
+                    } else {
+                        ctx.lineTo(p.x, p.y);
+                    }
+                }
+                
+                // Color based on time/season
+                let mColor = `rgba(69, 90, 100, ${layer.alpha})`;
+                if (currentSeason === 'winter') mColor = `rgba(207, 216, 220, ${layer.alpha})`;
+                
+                ctx.fillStyle = mColor;
+                ctx.fill();
+            });
+        }
+
+        function drawGroundCover() {
+            if (currentSeason !== 'spring' && currentSeason !== 'summer') return;
+
+            groundCoverData.forEach(f => {
+                ctx.save();
+                ctx.translate(f.x, f.y);
+
+                // Petals
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+                for (let i = 0; i < f.petals; i++) {
+                    ctx.rotate((Math.PI * 2) / f.petals);
+                    ctx.beginPath();
+                    ctx.ellipse(0, f.size * 1.2, f.size * 0.6, f.size * 1.2, 0, 0, Math.PI);
+                    ctx.fill();
+                }
+                
+                // Center
+                ctx.fillStyle = '#ffc107';
+                ctx.beginPath();
+                ctx.arc(0, 0, f.size * 0.8, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.restore();
+            });
+        }
+
+        function drawDecorations() {
+            // Stone Lantern
+            const lx = width/2 - 180;
+            const ly = height - 40;
+            const scale = 0.8;
+            
+            // Silhouette color
+            ctx.fillStyle = '#37474f';
+            
+            // Base
+            ctx.fillRect(lx - 15*scale, ly, 30*scale, 40); 
+            // Platform
+            ctx.beginPath();
+            ctx.moveTo(lx - 25*scale, ly);
+            ctx.lineTo(lx + 25*scale, ly);
+            ctx.lineTo(lx + 20*scale, ly - 10*scale);
+            ctx.lineTo(lx - 20*scale, ly - 10*scale);
+            ctx.fill();
+            // Box
+            ctx.fillRect(lx - 15*scale, ly - 35*scale, 30*scale, 25*scale);
+            // Roof
+            ctx.beginPath();
+            ctx.moveTo(lx - 35*scale, ly - 35*scale);
+            ctx.lineTo(lx + 35*scale, ly - 35*scale);
+            ctx.quadraticCurveTo(lx, ly - 60*scale, lx, ly - 55*scale); 
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(lx, ly - 58*scale, 6*scale, 0, Math.PI*2);
+            ctx.fill();
+
+            // Candle Glow (Only at night)
+            if (dayProgress < 0.25 || dayProgress > 0.75) {
+                ctx.fillStyle = `rgba(255, 160, 0, ${0.6 + Math.random()*0.2})`; // Flicker
+                ctx.fillRect(lx - 5*scale, ly - 30*scale, 10*scale, 15*scale);
+                
+                // Glow halo
+                let glow = ctx.createRadialGradient(lx, ly - 22*scale, 5, lx, ly - 22*scale, 60);
+                glow.addColorStop(0, 'rgba(255, 160, 0, 0.4)');
+                glow.addColorStop(1, 'rgba(255, 160, 0, 0)');
+                ctx.fillStyle = glow;
+                ctx.beginPath();
+                ctx.arc(lx, ly - 22*scale, 60, 0, Math.PI*2);
+                ctx.fill();
+            }
+        }
+
+        function drawBranchRecursively(branch, globalWind) {
+            const depthFactor = branch.depth * 0.1;
+            const sway = Math.sin(simulationTime * config.windSpeed + branch.depth * 0.5 + branch.noiseOffset) * 0.005;
+            
+            ctx.rotate(branch.relativeAngle + sway + (globalWind * depthFactor * 0.05));
+
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.quadraticCurveTo(sway * 20, -branch.length / 2, 0, -branch.length);
+            
+            ctx.lineWidth = branch.width;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = config.colors.branch;
+            ctx.stroke();
+            
+            // Winter Snow on Branch
+            if (currentSeason === 'winter' && branch.depth > 2) {
+                ctx.save();
+                ctx.strokeStyle = 'rgba(255,255,255,0.6)';
+                ctx.lineWidth = branch.width * 0.8;
+                ctx.beginPath();
+                ctx.moveTo(0, -branch.width/2); // Slightly offset
+                ctx.lineTo(0, -branch.length * 0.8);
+                ctx.stroke();
+                ctx.restore();
+            }
+
+            // Leaves
+            if (branch.depth > config.maxDepth - 4 || branch.branches.length === 0) {
+                drawLeaves(0, -branch.length, branch);
+            }
+
+            ctx.translate(0, -branch.length);
+
+            if (branch.branches) {
+                 for (let i = 0; i < branch.branches.length; i++) {
+                    ctx.save();
+                    drawBranchRecursively(branch.branches[i], globalWind);
+                    ctx.restore();
+                 }
+            }
+        }
+
+        function drawLeaves(x, y, branch) {
+            const depth = branch.depth;
+            if (currentSeason === 'winter') return; // No leaves in winter
+
+            const size = (14 - depth) * 1.2;
+            ctx.save();
+            ctx.translate(x, y);
+            
+            const palette = config.colors.leaves[currentSeason];
+
+            for(let i=0; i<5; i++) {
+                ctx.rotate(Math.PI * 2 / 5);
+                ctx.beginPath();
+                ctx.ellipse(0, size, size/2, size, 0, 0, Math.PI * 2);
+                ctx.fillStyle = i % 2 === 0 ? palette.main : palette.shadow;
+                ctx.fill();
+            }
+
+            // Draw fruit in summer on some branches
+            if (currentSeason === 'summer' && branch.noiseOffset > 85) {
+                ctx.fillStyle = 'rgba(239, 83, 80, 0.95)'; // Reddish fruit
+                
+                ctx.beginPath();
+                ctx.arc(size * 0.6, -size * 0.2, size * 0.5, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.beginPath();
+                ctx.arc(-size * 0.4, -size, size * 0.45, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            ctx.restore();
+        }
+
+        function drawParticles() {
+            // Particle behavior based on season/weather
+            let type = 'none';
+            let color = '#fff';
+            
+            if (currentSeason === 'winter') { type = 'snow'; color = 'rgba(255,255,255,0.8)'; }
+            else if (currentSeason === 'spring') { type = 'petal'; color = 'rgba(255, 192, 203, 0.8)'; }
+            else if (currentSeason === 'autumn') { type = 'leaf'; color = 'rgba(216, 67, 21, 0.8)'; }
+            else if (currentSeason === 'summer' && (dayProgress < 0.2 || dayProgress > 0.8)) {
+                 type = 'firefly'; color = 'rgba(255, 235, 59, 0.8)';
+            }
+
+            if (type === 'none') return;
+
+            particles.forEach(p => {
+                ctx.fillStyle = color;
+
+                if (type === 'firefly') {
+                    ctx.beginPath();
+                    // Bobbing motion
+                    p.x += Math.sin(simulationTime * 0.005 + p.wobble) * 0.5;
+                    p.y += Math.cos(simulationTime * 0.005 + p.wobble) * 0.5;
+                    // Blink
+                    const alpha = (Math.sin(simulationTime * 0.01 + p.wobble) + 1) / 2;
+                    ctx.fillStyle = `rgba(255, 235, 59, ${alpha})`;
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fill();
+                } else {
+                    // Enhanced falling motion
+                    p.y += p.speedY;
+                    p.x += Math.sin(simulationTime * 0.003 + p.wobble) * 1.2 + p.speedX;
+                    
+                    ctx.save();
+                    ctx.translate(p.x, p.y);
+
+                    if (type === 'leaf' || type === 'petal') {
+                        const rotation = Math.sin(simulationTime * 0.002 + p.wobble) * 2;
+                        ctx.rotate(rotation);
+                    }
+                    
+                    ctx.beginPath();
+                    if (type === 'leaf' || type === 'petal') {
+                        ctx.ellipse(0, 0, p.size * 1.5, p.size * 0.75, 0, 0, Math.PI * 2);
+                    } else {
+                        ctx.arc(0, 0, p.size, 0, Math.PI * 2);
+                    }
+                    ctx.fill();
+                    ctx.restore();
+
+                    // Reset
+                    if (p.y > height + 10) {
+                        p.y = -10;
+                        p.x = Math.random() * width;
+                    }
+                    if (p.x > width + 10 || p.x < -10) {
+                        p.y = -10;
+                        p.x = Math.random() * width;
+                    }
+                }
+            });
+        }
+
+        function updateCritters() {
+            // Only run during the day in warm seasons
+            if (currentSeason === 'winter' || dayProgress < 0.25 || dayProgress > 0.75) {
+                critters = []; // Clear critters at night/winter
+                return;
+            }
+
+            // Chance to spawn a new critter, but not too often
+            const now = simulationTime;
+            if (critters.length < 1 && (now - lastCritterTime > 20000)) { // 20 second cooldown
+                if (Math.random() < 0.1) {
+                    lastCritterTime = now;
+                    critters.push({
+                        x: 0,
+                        y: Math.random() * height * 0.5,
+                        size: Math.random() * 4 + 6,
+                        speedX: Math.random() * 0.5 + 0.5,
+                        path: Math.random() * 100
+                    });
+                }
+            }
+
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+            
+            for (let i = critters.length - 1; i >= 0; i--) {
+                let c = critters[i];
+                c.x += c.speedX;
+                let yOffset = Math.sin(c.x * 0.05 + c.path) * 20;
+
+                // Simple butterfly shape
+                const wingSpeed = 0.02;
+                let wingAngle = Math.sin(simulationTime * wingSpeed) * 0.8;
+                
+                ctx.save();
+                ctx.translate(c.x, c.y + yOffset);
+                // Left wing
+                ctx.beginPath();
+                ctx.ellipse(-c.size/2, 0, c.size, c.size * (1-Math.abs(wingAngle)), -wingAngle, 0, Math.PI * 2);
+                ctx.fill();
+                // Right wing
+                ctx.beginPath();
+                ctx.ellipse(c.size/2, 0, c.size, c.size * (1-Math.abs(wingAngle)), wingAngle, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+
+                // Remove if off-screen
+                if (c.x > width + 20) {
+                    critters.splice(i, 1);
+                }
+            }
+        }
+
+        // --- ANIMATION LOOP ---
+
+        function animate() {
+            const now = performance.now();
+            const dt = now - lastFrameTime;
+            lastFrameTime = now;
+
+            updateTime(dt);
+            draw();
+            requestAnimationFrame(animate);
+        }
+
+        init();
+
+    </script>
+</body>
+</html>
