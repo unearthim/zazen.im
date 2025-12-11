@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,25 +8,102 @@
     <!-- === 1. Primary Meta Tags === -->
     <title>Zazen | zazen.im</title>
     <meta name="title" content="Zazen | zazen.im">
-    <meta name="description" content="An interactive digital art piece simulating a procedural bonsai tree through real-time seasons and celestial cycles. A living monument by Jojo.">
-    <meta name="keywords" content="digital art, procedural generation, generative art, bonsai, zen garden, simulation, real-time, interactive art, Jojo, unearth.im">
-    <meta name="author" content="zazen.im (by unearth heritage foundry - archive & anvil - unearth.im)">
+    <meta name="description"
+        content="An interactive digital art piece simulating a procedural bonsai tree through real-time seasons and celestial cycles. A living monument by Unearth Heritage Foundry.">
+    <meta name="keywords"
+        content="digital art, procedural generation, generative art, bonsai, zen garden, simulation, real-time, interactive art, Jojo, unearth.im, Unearth Heritage Foundry">
+    <meta name="author" content="Unearth Heritage Foundry">
     <meta name="robots" content="index, follow">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="language" content="English">
-    
+
     <!--- NON-NEGOTIABLE AND IMPORTANT:CANONICAL LINKS: if page-url.html is index.html, no need to attach it at the end of link--->
-    
-  <link rel="canonical" href="https://zazen.im/" />
-  
+
+    <link rel="canonical" href="https://zazen.im/" />
+
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "VisualArtwork",
+          "@id": "https://zazen.im/#content",
+          "url": "https://zazen.im",
+          "name": "Zazen: Botanical Chronometer",
+          "description": "An interactive digital art piece simulating a procedural bonsai tree through real-time seasons and celestial cycles. A living monument to contemplation and natural rhythms.",
+          "artMedium": "Interactive Procedural Simulation",
+          "artForm": "Digital Living Monument",
+          "inLanguage": "en-US",
+          "datePublished": "2025-01-01",
+          "publisher": { "@id": "https://unearth.im/#organization" },
+          "isPartOf": { "@id": "https://zazen.im/#website" },
+          "author": [
+            { "@id": "https://josiest.com/#person" },
+            { "@id": "https://felixvelas.co/#person" }
+          ],
+          "keywords": "digital art, procedural generation, generative art, bonsai, zen garden, simulation, real-time, interactive art"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://zazen.im/#website",
+          "url": "https://zazen.im",
+          "name": "Zazen",
+          "publisher": { "@id": "https://unearth.im/#organization" }
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://unearth.im/#organization",
+          "name": "Unearth Heritage Foundry",
+          "alternateName": ["Unearth Foundry","Archive & Anvil","Unearth Anvil","Unearth Works","Cultural Infrastructure Foundry"],
+          "url": "https://unearth.im",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://unearth.im/favicon-32x32.png"
+          },
+          "foundingDate": "2024",
+          "sameAs": [
+            "https://unearth.im",
+            "https://unearth.ink",
+            "https://unearth.wiki",
+            "https://unearth.works",
+            "https://unearth.fyi",
+            "https://twitter.com/unearthim",
+            "https://github.com/unearthim"
+          ]
+        },
+        {
+          "@type": "Person",
+          "@id": "https://josiest.com/#person",
+          "name": "Josie Jefferson",
+          "url": "https://josiest.com",
+          "jobTitle": "Digital Archaeologist & Trust Architect",
+          "affiliation": { "@id": "https://unearth.im/#organization" },
+          "sameAs": ["https://notjojo.im"]
+        },
+        {
+          "@type": "Person",
+          "@id": "https://felixvelas.co/#person",
+          "name": "Felix Velasco",
+          "url": "https://felixvelas.co",
+          "jobTitle": "Trust Architect & Digital Archaeologist",
+          "affiliation": { "@id": "https://unearth.im/#organization" },
+          "sameAs": ["https://www.linkedin.com/in/felix-velasco-b793015"]
+        }
+      ]
+    }
+    </script>
+
     <!-- === 2. Webmention Endpoint === -->
     <link rel="webmention" href="https://webmention.io/unearth.im/webmention" />
 
+
     <!-- === 3. Open Graph / Facebook === -->
-    <meta property="og:type" content="website"> 
+    <meta property="og:type" content="website">
     <meta property="og:url" content="https://zazen.im/">
     <meta property="og:title" content="Zazen | zazen.im">
-    <meta property="og:description" content="An interactive digital art piece simulating a procedural bonsai tree through real-time seasons and celestial cycles. A living monument by unearth heritage foundry | archive & anvil">
+    <meta property="og:description"
+        content="An interactive digital art piece simulating a procedural bonsai tree through real-time seasons and celestial cycles. A living monument by unearth heritage foundry | archive & anvil">
     <meta property="og:image" content="https://zazen.im/og-image.png">
     <meta property="og:site_name" content="zazen.im">
 
@@ -33,7 +111,8 @@
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://zazen.im/">
     <meta property="twitter:title" content="Zazen | zazen.im">
-    <meta property="twitter:description" content="An interactive digital art piece simulating a procedural bonsai tree through real-time seasons and celestial cycles. A living monument by unearth heritage foundry | archive & anvil.">
+    <meta property="twitter:description"
+        content="An interactive digital art piece simulating a procedural bonsai tree through real-time seasons and celestial cycles. A living monument by unearth heritage foundry | archive & anvil.">
     <meta property="twitter:image" content="https://zazen.im/og-image.png">
 
     <!-- === 5. Favicons === -->
@@ -44,7 +123,8 @@
     <meta name="msapplication-TileColor" content="#3e2723">
 
     <style>
-        body, html {
+        body,
+        html {
             margin: 0;
             padding: 0;
             width: 100%;
@@ -53,7 +133,7 @@
             background-color: #1a1a1a;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         #canvas-container {
             position: relative;
             width: 100%;
@@ -157,8 +237,8 @@
         }
 
         button {
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             color: #ddd;
             padding: 8px 12px;
             border-radius: 4px;
@@ -171,8 +251,8 @@
         }
 
         button:hover {
-            background: rgba(255,255,255,0.2);
-            border-color: rgba(255,255,255,0.4);
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
             color: #fff;
         }
 
@@ -180,13 +260,13 @@
             display: inline-block;
             padding: 2px 6px;
             border-radius: 4px;
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
             font-size: 0.7rem;
             margin-right: 5px;
         }
-
     </style>
 </head>
+
 <body>
 
     <div id="ui-top-right">
@@ -195,9 +275,10 @@
             <h1>Botanical Chronometer</h1>
             <div class="metadata">
                 <div id="dateDisplay">YYYY-MM-DD HH:MM</div>
-                <div><span id="seasonDisplay" class="status-badge">Loading...</span> <span id="timeDisplay" class="status-badge">--</span></div>
+                <div><span id="seasonDisplay" class="status-badge">Loading...</span> <span id="timeDisplay"
+                        class="status-badge">--</span></div>
             </div>
-            
+
             <div class="control-group">
                 <label>Time Flow <span id="speedVal">Real-time</span></label>
                 <input type="range" id="speedSlider" min="0" max="5" step="1" value="0">
@@ -231,18 +312,18 @@
         const speedLabel = document.getElementById('speedVal');
 
         let width, height;
-        let treeData = []; 
+        let treeData = [];
         let mountainData = [];
         let particles = [];
         let starData = [];
         let critters = [];
         let lastCritterTime = 0;
-        
+
         // Time System
         let simulationTime = Date.now();
         let timeSpeed = 1;
         let lastFrameTime = performance.now();
-        
+
         // Environmental State
         let currentSeason = 'spring';
         let dayProgress = 0.5; // 0 to 1 (0=midnight, 0.5=noon)
@@ -327,13 +408,13 @@
         function updateTime(dt) {
             // Increment simulation time
             simulationTime += dt * timeSpeed;
-            
+
             const date = new Date(simulationTime);
-            
+
             // Update UI
-            dateDisplay.innerText = date.toLocaleString('en-US', { 
-                year: 'numeric', month: 'short', day: '2-digit', 
-                hour: '2-digit', minute: '2-digit' 
+            dateDisplay.innerText = date.toLocaleString('en-US', {
+                year: 'numeric', month: 'short', day: '2-digit',
+                hour: '2-digit', minute: '2-digit'
             });
 
             // Calculate Day Progress (0.0 - 1.0)
@@ -343,7 +424,7 @@
 
             // Calculate Season (Northern Hemisphere approx)
             const month = date.getMonth(); // 0-11
-            
+
             let newSeason;
             if (month >= 2 && month <= 4) newSeason = 'spring';       // Mar, Apr, May
             else if (month >= 5 && month <= 7) newSeason = 'summer';  // Jun, Jul, Aug
@@ -356,7 +437,7 @@
             }
 
             seasonDisplay.innerText = currentSeason.toUpperCase();
-            
+
             // Day State Label
             let timeLabel = "NIGHT";
             if (dayProgress > 0.25 && dayProgress < 0.75) timeLabel = "DAY";
@@ -376,7 +457,7 @@
         function generateStars() {
             starData = [];
             const starCount = 200;
-            for(let i=0; i<starCount; i++) {
+            for (let i = 0; i < starCount; i++) {
                 starData.push({
                     x: Math.random() * width,
                     y: Math.random() * height * 0.8, // Only in the upper 80% of the sky
@@ -389,7 +470,7 @@
         function generateTreeSkeleton() {
             const startLength = Math.min(height, width) * 0.16;
             treeData = {
-                relativeAngle: 0, 
+                relativeAngle: 0,
                 length: startLength,
                 width: startLength * 0.12,
                 depth: 0,
@@ -401,17 +482,17 @@
 
         function growBranch(branch) {
             if (branch.depth >= config.maxDepth) return;
-            
+
             const numBranches = Math.random() > 0.75 ? 3 : 2;
 
             for (let i = 0; i < numBranches; i++) {
-                const spread = (Math.random() * 0.6 + 0.3); 
-                const dir = (i / (numBranches - 1) - 0.5) * spread; 
-                const noise = (Math.random() - 0.5) * 0.3; 
-                
+                const spread = (Math.random() * 0.6 + 0.3);
+                const dir = (i / (numBranches - 1) - 0.5) * spread;
+                const noise = (Math.random() - 0.5) * 0.3;
+
                 const relativeAngle = dir + noise;
                 const lenMult = 0.75 + (Math.random() * 0.15 - 0.05);
-                
+
                 const newBranch = {
                     relativeAngle: relativeAngle,
                     length: branch.length * lenMult,
@@ -420,7 +501,7 @@
                     noiseOffset: Math.random() * 100,
                     branches: []
                 };
-                
+
                 if (newBranch.length < 5) continue;
                 branch.branches.push(newBranch);
                 growBranch(newBranch);
@@ -430,36 +511,36 @@
         function generateMountains() {
             mountainData = [];
             const layers = 3;
-            for(let l=0; l<layers; l++) {
+            for (let l = 0; l < layers; l++) {
                 let points = [];
                 let yBase = height - (l * 80) - 50;
                 let x = 0;
-                points.push({x: 0, y: height});
-                points.push({x: 0, y: yBase});
-                
-                while(x < width) {
+                points.push({ x: 0, y: height });
+                points.push({ x: 0, y: yBase });
+
+                while (x < width) {
                     x += 20 + Math.random() * 80;
                     let yNoise = (Math.random() - 0.5) * 80;
-                    points.push({x: x, y: yBase + yNoise});
+                    points.push({ x: x, y: yBase + yNoise });
                 }
-                
-                points.push({x: width, y: height});
-                
+
+                points.push({ x: width, y: height });
+
                 mountainData.push({
                     points: points,
                     // Store base alpha, will adjust brightness in draw loop
-                    alpha: 0.3 + (l * 0.2) 
+                    alpha: 0.3 + (l * 0.2)
                 });
             }
         }
 
         function createParticles() {
             particles = [];
-            for(let i=0; i<80; i++) {
+            for (let i = 0; i < 80; i++) {
                 resetParticle({});
             }
         }
-        
+
         function resetParticle(p) {
             p.x = Math.random() * width;
             p.y = Math.random() * height;
@@ -476,14 +557,14 @@
         function getSkyColor() {
             // Interpolate between 4 states based on dayProgress
             // Dawn: 0.25, Day: 0.5, Dusk: 0.75, Night: 0.0/1.0
-            
+
             let c1, c2, t;
             const colors = config.colors.sky;
 
             // Helper to interpolate hex colors would be complex, 
             // simplified approach: just switch logic or simple lerp if converted to RGB.
             // For robustness, let's use canvas gradients and just overlay them with alpha.
-            
+
             // But for cleaner code, let's just return the active palette and use alpha blending for transitions.
             if (dayProgress < 0.2) return { top: colors.night[0], bot: colors.night[1], alpha: 1 }; // Night
             if (dayProgress < 0.3) return { top: colors.dawn[0], bot: colors.dawn[1], alpha: 1 };   // Dawn transition
@@ -495,7 +576,7 @@
         function drawSky() {
             // 1. Base Background (Black)
             ctx.fillStyle = '#000';
-            ctx.fillRect(0,0,width,height);
+            ctx.fillRect(0, 0, width, height);
 
             // 2. Determine Sky Gradient
             const sky = getSkyColor();
@@ -520,7 +601,7 @@
             } else if (dayProgress >= 0.75 && dayProgress < 0.8) { // Fading out at dusk
                 globalAlpha = (dayProgress - 0.75) * 4;
             }
-             
+
             ctx.fillStyle = '#fff';
             starData.forEach(star => {
                 ctx.globalAlpha = globalAlpha * star.alpha * (0.5 + Math.abs(Math.sin(simulationTime * 0.0001 * star.size)));
@@ -568,33 +649,33 @@
 
         function draw() {
             // Clear
-            ctx.clearRect(0,0,width,height);
+            ctx.clearRect(0, 0, width, height);
 
             drawSky();
             drawStars();
             drawMountains();
-            
+
             // Ground
             let groundColor;
-            switch(currentSeason) {
+            switch (currentSeason) {
                 case 'winter': groundColor = '#eceff1'; break; // Snow
                 case 'autumn': groundColor = '#5d4037'; break; // Brown earth
                 default: groundColor = '#2e7d32'; break; // Green grass
             }
-            
+
             // Dim ground at night
             if (dayProgress < 0.25 || dayProgress > 0.75) {
                 // Simple brightness hack
-                 // Actually, stick to one color for simplicity, rely on global lighting overlay? 
-                 // Let's just manually pick dark variants
-                 if (currentSeason === 'winter') groundColor = '#37474f';
-                 else if (currentSeason === 'autumn') groundColor = '#3e2723';
-                 else groundColor = '#1b5e20';
+                // Actually, stick to one color for simplicity, rely on global lighting overlay? 
+                // Let's just manually pick dark variants
+                if (currentSeason === 'winter') groundColor = '#37474f';
+                else if (currentSeason === 'autumn') groundColor = '#3e2723';
+                else groundColor = '#1b5e20';
             }
 
             ctx.beginPath();
             ctx.moveTo(0, height);
-            ctx.quadraticCurveTo(width/2, height - 60, width, height);
+            ctx.quadraticCurveTo(width / 2, height - 60, width, height);
             ctx.fillStyle = groundColor;
             ctx.fill();
 
@@ -603,8 +684,8 @@
             // Tree
             ctx.save();
             ctx.translate(width / 2, height - 30);
-            ctx.rotate(baseLean); 
-            
+            ctx.rotate(baseLean);
+
             // Tree Sway
             const windFactor = Math.sin(simulationTime * config.windSpeed);
             drawBranchRecursively(treeData, windFactor);
@@ -622,7 +703,7 @@
             }
             if (darkness > 0) {
                 ctx.fillStyle = `rgba(0, 0, 10, ${Math.min(darkness, 0.7)})`;
-                ctx.fillRect(0,0,width,height);
+                ctx.fillRect(0, 0, width, height);
             }
         }
 
@@ -630,21 +711,21 @@
             mountainData.forEach(layer => {
                 ctx.beginPath();
                 ctx.moveTo(layer.points[0].x, layer.points[0].y);
-                for(let i=1; i<layer.points.length; i++) {
+                for (let i = 1; i < layer.points.length; i++) {
                     let p = layer.points[i];
                     if (i < layer.points.length - 1) {
-                         let xc = (layer.points[i].x + layer.points[i+1].x) / 2;
-                         let yc = (layer.points[i].y + layer.points[i+1].y) / 2;
-                         ctx.quadraticCurveTo(layer.points[i].x, layer.points[i].y, xc, yc);
+                        let xc = (layer.points[i].x + layer.points[i + 1].x) / 2;
+                        let yc = (layer.points[i].y + layer.points[i + 1].y) / 2;
+                        ctx.quadraticCurveTo(layer.points[i].x, layer.points[i].y, xc, yc);
                     } else {
                         ctx.lineTo(p.x, p.y);
                     }
                 }
-                
+
                 // Color based on time/season
                 let mColor = `rgba(69, 90, 100, ${layer.alpha})`;
                 if (currentSeason === 'winter') mColor = `rgba(207, 216, 220, ${layer.alpha})`;
-                
+
                 ctx.fillStyle = mColor;
                 ctx.fill();
             });
@@ -665,7 +746,7 @@
                     ctx.ellipse(0, f.size * 1.2, f.size * 0.6, f.size * 1.2, 0, 0, Math.PI);
                     ctx.fill();
                 }
-                
+
                 // Center
                 ctx.fillStyle = '#ffc107';
                 ctx.beginPath();
@@ -678,46 +759,46 @@
 
         function drawDecorations() {
             // Stone Lantern
-            const lx = width/2 - 180;
+            const lx = width / 2 - 180;
             const ly = height - 40;
             const scale = 0.8;
-            
+
             // Silhouette color
             ctx.fillStyle = '#37474f';
-            
+
             // Base
-            ctx.fillRect(lx - 15*scale, ly, 30*scale, 40); 
+            ctx.fillRect(lx - 15 * scale, ly, 30 * scale, 40);
             // Platform
             ctx.beginPath();
-            ctx.moveTo(lx - 25*scale, ly);
-            ctx.lineTo(lx + 25*scale, ly);
-            ctx.lineTo(lx + 20*scale, ly - 10*scale);
-            ctx.lineTo(lx - 20*scale, ly - 10*scale);
+            ctx.moveTo(lx - 25 * scale, ly);
+            ctx.lineTo(lx + 25 * scale, ly);
+            ctx.lineTo(lx + 20 * scale, ly - 10 * scale);
+            ctx.lineTo(lx - 20 * scale, ly - 10 * scale);
             ctx.fill();
             // Box
-            ctx.fillRect(lx - 15*scale, ly - 35*scale, 30*scale, 25*scale);
+            ctx.fillRect(lx - 15 * scale, ly - 35 * scale, 30 * scale, 25 * scale);
             // Roof
             ctx.beginPath();
-            ctx.moveTo(lx - 35*scale, ly - 35*scale);
-            ctx.lineTo(lx + 35*scale, ly - 35*scale);
-            ctx.quadraticCurveTo(lx, ly - 60*scale, lx, ly - 55*scale); 
+            ctx.moveTo(lx - 35 * scale, ly - 35 * scale);
+            ctx.lineTo(lx + 35 * scale, ly - 35 * scale);
+            ctx.quadraticCurveTo(lx, ly - 60 * scale, lx, ly - 55 * scale);
             ctx.fill();
             ctx.beginPath();
-            ctx.arc(lx, ly - 58*scale, 6*scale, 0, Math.PI*2);
+            ctx.arc(lx, ly - 58 * scale, 6 * scale, 0, Math.PI * 2);
             ctx.fill();
 
             // Candle Glow (Only at night)
             if (dayProgress < 0.25 || dayProgress > 0.75) {
-                ctx.fillStyle = `rgba(255, 160, 0, ${0.6 + Math.random()*0.2})`; // Flicker
-                ctx.fillRect(lx - 5*scale, ly - 30*scale, 10*scale, 15*scale);
-                
+                ctx.fillStyle = `rgba(255, 160, 0, ${0.6 + Math.random() * 0.2})`; // Flicker
+                ctx.fillRect(lx - 5 * scale, ly - 30 * scale, 10 * scale, 15 * scale);
+
                 // Glow halo
-                let glow = ctx.createRadialGradient(lx, ly - 22*scale, 5, lx, ly - 22*scale, 60);
+                let glow = ctx.createRadialGradient(lx, ly - 22 * scale, 5, lx, ly - 22 * scale, 60);
                 glow.addColorStop(0, 'rgba(255, 160, 0, 0.4)');
                 glow.addColorStop(1, 'rgba(255, 160, 0, 0)');
                 ctx.fillStyle = glow;
                 ctx.beginPath();
-                ctx.arc(lx, ly - 22*scale, 60, 0, Math.PI*2);
+                ctx.arc(lx, ly - 22 * scale, 60, 0, Math.PI * 2);
                 ctx.fill();
             }
         }
@@ -725,25 +806,25 @@
         function drawBranchRecursively(branch, globalWind) {
             const depthFactor = branch.depth * 0.1;
             const sway = Math.sin(simulationTime * config.windSpeed + branch.depth * 0.5 + branch.noiseOffset) * 0.005;
-            
+
             ctx.rotate(branch.relativeAngle + sway + (globalWind * depthFactor * 0.05));
 
             ctx.beginPath();
             ctx.moveTo(0, 0);
             ctx.quadraticCurveTo(sway * 20, -branch.length / 2, 0, -branch.length);
-            
+
             ctx.lineWidth = branch.width;
             ctx.lineCap = 'round';
             ctx.strokeStyle = config.colors.branch;
             ctx.stroke();
-            
+
             // Winter Snow on Branch
             if (currentSeason === 'winter' && branch.depth > 2) {
                 ctx.save();
                 ctx.strokeStyle = 'rgba(255,255,255,0.6)';
                 ctx.lineWidth = branch.width * 0.8;
                 ctx.beginPath();
-                ctx.moveTo(0, -branch.width/2); // Slightly offset
+                ctx.moveTo(0, -branch.width / 2); // Slightly offset
                 ctx.lineTo(0, -branch.length * 0.8);
                 ctx.stroke();
                 ctx.restore();
@@ -757,11 +838,11 @@
             ctx.translate(0, -branch.length);
 
             if (branch.branches) {
-                 for (let i = 0; i < branch.branches.length; i++) {
+                for (let i = 0; i < branch.branches.length; i++) {
                     ctx.save();
                     drawBranchRecursively(branch.branches[i], globalWind);
                     ctx.restore();
-                 }
+                }
             }
         }
 
@@ -772,13 +853,13 @@
             const size = (14 - depth) * 1.2;
             ctx.save();
             ctx.translate(x, y);
-            
+
             const palette = config.colors.leaves[currentSeason];
 
-            for(let i=0; i<5; i++) {
+            for (let i = 0; i < 5; i++) {
                 ctx.rotate(Math.PI * 2 / 5);
                 ctx.beginPath();
-                ctx.ellipse(0, size, size/2, size, 0, 0, Math.PI * 2);
+                ctx.ellipse(0, size, size / 2, size, 0, 0, Math.PI * 2);
                 ctx.fillStyle = i % 2 === 0 ? palette.main : palette.shadow;
                 ctx.fill();
             }
@@ -786,7 +867,7 @@
             // Draw fruit in summer on some branches
             if (currentSeason === 'summer' && branch.noiseOffset > 85) {
                 ctx.fillStyle = 'rgba(239, 83, 80, 0.95)'; // Reddish fruit
-                
+
                 ctx.beginPath();
                 ctx.arc(size * 0.6, -size * 0.2, size * 0.5, 0, Math.PI * 2);
                 ctx.fill();
@@ -803,12 +884,12 @@
             // Particle behavior based on season/weather
             let type = 'none';
             let color = '#fff';
-            
+
             if (currentSeason === 'winter') { type = 'snow'; color = 'rgba(255,255,255,0.8)'; }
             else if (currentSeason === 'spring') { type = 'petal'; color = 'rgba(255, 192, 203, 0.8)'; }
             else if (currentSeason === 'autumn') { type = 'leaf'; color = 'rgba(216, 67, 21, 0.8)'; }
             else if (currentSeason === 'summer' && (dayProgress < 0.2 || dayProgress > 0.8)) {
-                 type = 'firefly'; color = 'rgba(255, 235, 59, 0.8)';
+                type = 'firefly'; color = 'rgba(255, 235, 59, 0.8)';
             }
 
             if (type === 'none') return;
@@ -830,7 +911,7 @@
                     // Enhanced falling motion
                     p.y += p.speedY;
                     p.x += Math.sin(simulationTime * 0.003 + p.wobble) * 1.2 + p.speedX;
-                    
+
                     ctx.save();
                     ctx.translate(p.x, p.y);
 
@@ -838,7 +919,7 @@
                         const rotation = Math.sin(simulationTime * 0.002 + p.wobble) * 2;
                         ctx.rotate(rotation);
                     }
-                    
+
                     ctx.beginPath();
                     if (type === 'leaf' || type === 'petal') {
                         ctx.ellipse(0, 0, p.size * 1.5, p.size * 0.75, 0, 0, Math.PI * 2);
@@ -884,7 +965,7 @@
             }
 
             ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-            
+
             for (let i = critters.length - 1; i >= 0; i--) {
                 let c = critters[i];
                 c.x += c.speedX;
@@ -893,16 +974,16 @@
                 // Simple butterfly shape
                 const wingSpeed = 0.02;
                 let wingAngle = Math.sin(simulationTime * wingSpeed) * 0.8;
-                
+
                 ctx.save();
                 ctx.translate(c.x, c.y + yOffset);
                 // Left wing
                 ctx.beginPath();
-                ctx.ellipse(-c.size/2, 0, c.size, c.size * (1-Math.abs(wingAngle)), -wingAngle, 0, Math.PI * 2);
+                ctx.ellipse(-c.size / 2, 0, c.size, c.size * (1 - Math.abs(wingAngle)), -wingAngle, 0, Math.PI * 2);
                 ctx.fill();
                 // Right wing
                 ctx.beginPath();
-                ctx.ellipse(c.size/2, 0, c.size, c.size * (1-Math.abs(wingAngle)), wingAngle, 0, Math.PI * 2);
+                ctx.ellipse(c.size / 2, 0, c.size, c.size * (1 - Math.abs(wingAngle)), wingAngle, 0, Math.PI * 2);
                 ctx.fill();
                 ctx.restore();
 
@@ -929,4 +1010,5 @@
 
     </script>
 </body>
+
 </html>
